@@ -183,6 +183,8 @@ class BaseCursor(object):
             if isinstance(args, dict):
                 query = query % dict((key, db.literal(item))
                                      for key, item in args.iteritems())
+            elif isinstance(args, str) or isinstance(args, unicode):
+                query = query % db.literal(args)
             else:
                 query = query % tuple([db.literal(item) for item in args])
         try:
